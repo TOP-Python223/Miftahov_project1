@@ -1,4 +1,5 @@
 """Дополнительный модуль: обработка игрового процесса."""
+from typing import Set, Any
 
 
 def show_field(turns) -> str:
@@ -27,7 +28,8 @@ def wins(x):
     return res
 
 
-def check_win(turns) -> bool:
+def check_win(turns) -> set[bool | Any] | set[Any]:
+    global win_columns
     columns = [[turns[j][i] for j in range(len(turns))] for i in range(len(turns))]
     diagonals = ([turns[0][0], turns[1][1], turns[2][2]], [turns[0][2], turns[1][1], turns[2][0]])
 
