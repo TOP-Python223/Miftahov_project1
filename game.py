@@ -1,7 +1,6 @@
 """Дополнительный модуль: обработка игрового процесса."""
 
 
-
 def show_field(turns) -> str:
     board = ''
     for i in range(len(turns)):
@@ -20,29 +19,33 @@ def show_field(turns) -> str:
     return board
 
 
-# def wins(x):
-# res = set()
-# res_list = [i % 2 != 0 for i in x if i != 0]
-# if len(res_list) == 3:
-# res = set(res_list)
-# return res
+def wins(x):
+    res = set()
+    res_list = [i % 2 != 0 for i in x if i != 0]
+    if len(res_list) == 3:
+        res = set(res_list)
+    return res
+
 
 def check_win(turns) -> bool:
     columns = [[turns[j][i] for j in range(len(turns))] for i in range(len(turns))]
     diagonals = ([turns[0][0], turns[1][1], turns[2][2]], [turns[0][2], turns[1][1], turns[2][0]])
 
-    for matrix in (turns, columns, diagonals):
+    for i in range(len(turns)):
+        win_rows = wins(turns[i])
+        if len(win_rows) == 1:
+            return win_rows
 
+    for i in range(len(columns)):
+        win_columns = wins(columns[i])
+        if len(win_columns) == 1:
+            return win_columns
 
-# for i in range(len(turns)):
-# win_rows = wins(turns[i])
-# if len(win_rows) == 1:
-# return win_rows
+    for i in range(len(diagonals)):
+        win_diagonals = wins(diagonals[i])
+        if len(win_columns) == 1:
+            return win_diagonals
 
-# for i in range(len(columns)):
-# win_columns = wins(columns[i])
-# if len(win_columns) == 1:
-# return win_columns
 
 move = [[0, 4, 1],
         [0, 2, 3],
